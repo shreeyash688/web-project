@@ -1,0 +1,20 @@
+body{
+      text-align: center;
+      font-style: normal;
+      background-color: rgb(219, 245, 136);
+    }
+    th{
+      font-variant: normal;
+      font-size: x-large;
+    }
+    table{
+      border: 2px solid black;
+      border-collapse: collapse;
+      margin-left: auto;
+      margin-right: auto;
+      background-color:white;
+      
+    }
+    th, td{
+      border: 2px solid black;
+    }

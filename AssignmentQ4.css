@@ -1,0 +1,15 @@
+table{
+    margin-right: auto;
+    margin-left: auto;
+    border: 2px solid black;
+    width: 50%;
+    line-height: 50px;
+    background-color: beige;
+
+}
+body{
+    align-items: center;
+    text-align: center;
+    padding: 50px;
+    background-color: blanchedalmond;
+}

@@ -1,0 +1,13 @@
+td{
+    padding: 10px;
+}
+table{
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid black;
+}
+input[type="button"]{
+    width: 150px;
+    align-items: center;
+
+}

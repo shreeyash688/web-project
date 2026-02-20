@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- comment  -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LOGIN DETAIL</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/comman.css">
+    <!-- C:\WP B\css\comman.css -->
+
+    <!-- this link has to be inside head for linking the html file with css file we use href and css/the parent class that is common css -->
+  </head>
+  <body>
+    <div class="centraltable">
+      <!-- create a container named div to keep the button and the table in it because without this the table and the button keep 
+       comming side by side even if a br tag is encountered but in div it  treats the tbale as an entity the button 
+       as entity and br in middle makes it go on the next line-->
+    <table>
+      <tr> 
+        <td>USERNAME:<br></td>
+        <td><input type="text" name="uname" id="uname"></td>
+      </tr>
+      <tr> 
+        <td> PASSWORD:<br></td>
+        <td><input type="password" name="pswd",id="pswd"> </td>
+      </tr>
+    </table>
+    <input type="button" value="submit">
+    <button type="button">Submit</button>
+    <br><br>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  </body>
+</html> 
+<!-- <button type="button" class="btn btn-primary">Primary</button> this is also something you can use css has the concept of class and id that you can use but uou can either do this or you can do common.css -->
