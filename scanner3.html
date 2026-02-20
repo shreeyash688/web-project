@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High-Visibility Med-QRyebvdyww</title>
+    <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; display: flex; justify-content: center; padding: 20px; }
+        /* Made the card wider to accommodate a larger QR */
+        .card { background: white; padding: 40px; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); text-align: center; width: 450px; }
+        
+        /* QR Container Styling */
+        #qrcode { 
+            margin: 30px 0; 
+            display: flex; 
+            justify-content: center; 
+            background: #fff;
+            padding: 20px;
+            border: 2px dashed #cbd5e1;
+            border-radius: 20px;
+        }
+
+        .btn-blue { width: 100%; padding: 18px; background: #0056b3; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 16px; margin-bottom: 15px; transition: 0.3s; }
+        .btn-blue:hover { background: #003d82; }
+        
+        .details-view { text-align: left; display: none; }
+        .info-box { background: #f8fafc; padding: 20px; border-radius: 15px; border-left: 8px solid #0056b3; margin-top: 20px; }
+        .label { font-size: 12px; color: #64748b; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; }
+        .value { font-size: 20px; margin-bottom: 15px; font-weight: 600; color: #1e293b; }
+        
+        #reader { width: 100%; border-radius: 20px; overflow: hidden; display: none; margin-top: 20px; border: 3px solid #0056b3; }
+        
+        @media print {
+            .btn-blue, #reader, h2, p { display: none !important; }
+            .card { box-shadow: none; border: none; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div id="generator-ui">
+        <h1 style="color: #0f172a; margin-bottom: 5px;">Patient Pass</h1>
+        <div style="width: 50px; height: 5px; background: #0056b3; margin: 10px auto; border-radius: 5px;"></div>
+        
+        <div id="qrcode"></div>
+        
+        <h2 style="letter-spacing: 2px; color: #0056b3;" id="display-id"></h2>
+        
+        <button class="btn-blue" onclick="startPrivateScanner()">SCAN QR NOW</button>
+        <button onclick="window.print()" style="background:none; border:none; color:#64748b; cursor:pointer; text-decoration:underline;">Print Large QR</button>
+        
+        <div id="reader"></div>
+    </div>
+
+    <div id="details-ui" class="details-view">
+        <h2 style="color: #0056b3; text-align: center;">Medical Record Found</h2>
+        <div class="info-box">
+            <div class="label">Patient Full Name</div>
+            <div id="view-name" class="value"></div>
+            
+            <div class="label">Condition</div>
+            <div id="view-disease" class="value" style="color: #e11d48;"></div>
+            
+            <div class="label">Clinical Notes</div>
+            <div id="view-sys" class="value" style="font-size: 16px;"></div>
+        </div>
+        <button class="btn-blue" style="background:#64748b; margin-top:20px;" onclick="location.reload()">Close Record</button>
+    </div>
+</div>
+
+<script>
+    const activePatientID = "PT-102"; 
+
+    const patientDatabase = {
+        "PT-101": { name: "John Doe", disease: "Chronic Hypertension", notes: "Stable. Daily Amlodipine 5mg." },
+        "PT-102": { name: "Jane Smith", disease: "Type 1 Diabetes", notes: "Insulin dependent. Monitor glucose levels." }
+    };
+
+    // --- QR SIZE INCREASED TO 350 ---
+    const qrCode = new QRCodeStyling({
+        width: 350,
+        height: 350,
+        data: activePatientID,
+        dotsOptions: { color: "#000000", type: "square" }, // Square dots are easier to scan when large
+        cornersSquareOptions: { type: "square", color: "#000000" },
+        backgroundOptions: { color: "#ffffff" }
+    });
+
+    document.getElementById('display-id').innerText = activePatientID;
+    qrCode.append(document.getElementById("qrcode"));
+
+    function startPrivateScanner() {
+        document.getElementById('reader').style.display = 'block';
+        const html5QrCode = new Html5Qrcode("reader");
+        
+        html5QrCode.start(
+            { facingMode: "environment" }, 
+            { fps: 20, qrbox: { width: 300, height: 300 } },
+            (decodedText) => {
+                html5QrCode.stop().then(() => {
+                    showDetails(decodedText);
+                });
+            }
+        ).catch(err => alert("Camera error: Check HTTPS settings."));
+    }
+
+    function showDetails(patientID) {
+        if (patientDatabase[patientID]) {
+            document.getElementById('generator-ui').style.display = 'none';
+            document.getElementById('details-ui').style.display = 'block';
+            const p = patientDatabase[patientID];
+            document.getElementById('view-name').innerText = p.name;
+            document.getElementById('view-disease').innerText = p.disease;
+            document.getElementById('view-sys').innerText = p.notes;
+        } else {
+            alert("Invalid Security Key.");
+            location.reload();
+        }
+    }
+</script>
+
+</body>
+</html>
